@@ -4,7 +4,8 @@
     { "source": "/(.*)", "destination": "https://test-1111111111111111111111111111111111711111111111130406.myshopify.com/$1" }
   ],
   "redirects": [
-    { "source": "/webgather", "destination": "/webgather/windows/", "statusCode": 302 }
+    { "source": "/webgather", "destination": "/webgather/windows/", "statusCode": 302 },
+    { "source": "/webgather/windows/", "destination": "/webgather/windows/index.html", "statusCode": 302 }
   ],
   "headers": [
     {
