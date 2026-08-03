@@ -1,12 +1,11 @@
 {
   "rewrites": [
-    { "source": "/webgather/(.*)", "destination": "/webgather/$1" },
-    { "source": "/(.*)", "destination": "https://test-1111111111111111111111111111117111111111111130406.myshopify.com/$1" }
-  ],
-  "redirects": [
-    { "source": "/webgather", "destination": "/webgather/windows/", "statusCode": 302 },
-    { "source": "/webgather/", "destination": "/webgather/windows/", "statusCode": 302 },
-    { "source": "/webgather/windows", "destination": "/webgather/windows/", "statusCode": 302 }
+    { "source": "/webgather/windows/latest.yml", "destination": "/webgather/windows/latest.yml" },
+    { "source": "/webgather/windows/(.*\\.exe$|.*\\.blockmap$)", "destination": "/webgather/windows/$1" },
+    { "source": "/webgather", "destination": "/webgather/windows/" },
+    { "source": "/webgather/", "destination": "/webgather/windows/" },
+    { "source": "/webgather/windows", "destination": "/webgather/windows/" },
+    { "source": "/(.*)", "destination": "test-1111111111111111111111111111111111711111111111130406.myshopify.com/$1" }
   ],
   "headers": [
     {
