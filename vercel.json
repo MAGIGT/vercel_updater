@@ -14,7 +14,7 @@
       ]
     },
     {
-      "source": "/webgather/windows/(.*)",
+      "source": "/webgather/windows/(.*\\.exe$|.*\\.blockmap$)",
       "headers": [
         { "key": "Content-Type", "value": "application/octet-stream" }
       ]
