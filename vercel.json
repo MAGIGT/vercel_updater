@@ -1,31 +1,22 @@
 {
   "rewrites": [
-    {
-      "source": "/webgather/(.*)",
-      "destination": "/webgather/$1"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "https://test-1111111111111111111111111111111111711111111111130406.myshopify.com/$1"
-    }
+    { "source": "/webgather/(.*)", "destination": "/webgather/$1" },
+    { "source": "/(.*)", "destination": "https://test-1111111111111111111111111111111111711111111111130406.myshopify.com/$1" }
+  ],
+  "redirects": [
+    { "source": "/webgather", "destination": "/webgather/windows/", "statusCode": 302 }
   ],
   "headers": [
     {
       "source": "/webgather/windows/latest.yml",
       "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "no-cache, no-store, must-revalidate"
-        }
+        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
       ]
     },
     {
       "source": "/webgather/windows/(.*)",
       "headers": [
-        {
-          "key": "Content-Type",
-          "value": "application/octet-stream"
-        }
+        { "key": "Content-Type", "value": "application/octet-stream" }
       ]
     }
   ]
