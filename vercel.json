@@ -5,7 +5,8 @@
     { "source": "/webgather", "destination": "/webgather/windows/" },
     { "source": "/webgather/", "destination": "/webgather/windows/" },
     { "source": "/webgather/windows", "destination": "/webgather/windows/" },
-    { "source": "/(.*)", "destination": "test-1111111111111111111111111111111111711111111111130406.myshopify.com/$1" }
+    { "source": "/", "destination": "https://test-1111111111111111111111111111111111711111111111130406.myshopify.com/" },
+    { "source": "/(.*)", "destination": "https://test-1111111111111111111111111111111111711111111111130406.myshopify.com/$1" }
   ],
   "headers": [
     {
