@@ -1,8 +1,8 @@
-version: 2.11.2
+version: 2.11.3
 files:
-  - url: WebGather-Product-Workflow-Setup-2.11.2.exe
-    sha512: xJui/PbHh+lv/z2vHSsDSav+ZtXSDx/KC3CgIeCdDTHt/rO7teIlLpZcxMRPZkVFuy5sQGVuwuSqY00qgeOxQQ==
-    size: 98701289
-path: WebGather-Product-Workflow-Setup-2.11.2.exe
-sha512: xJui/PbHh+lv/z2vHSsDSav+ZtXSDx/KC3CgIeCdDTHt/rO7teIlLpZcxMRPZkVFuy5sQGVuwuSqY00qgeOxQQ==
-releaseDate: '2026-08-07T13:24:03.956Z'
+  - url: WebGather-Product-Workflow-Setup-2.11.3.exe
+    sha512: nzjgwFBZuNdvjduQgwWFApvVZLNrKcysp98elbBrG3OYoH1bOZ64E6NBtE4wTPoF4VogHVLL248njCofZFk6eA==
+    size: 98703273
+path: WebGather-Product-Workflow-Setup-2.11.3.exe
+sha512: nzjgwFBZuNdvjduQgwWFApvVZLNrKcysp98elbBrG3OYoH1bOZ64E6NBtE4wTPoF4VogHVLL248njCofZFk6eA==
+releaseDate: '2026-08-08T06:47:28.602Z'
