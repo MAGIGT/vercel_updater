@@ -46,31 +46,31 @@ p{margin:4px 0 0;color:var(--text-muted);font-size:11px;line-height:1.5}
 (async function() {
     const versionEl = document.getElementById('versionDisplay');
     const downloadBtn = document.getElementById('downloadBtn');
+    const BASE_URL = "https://github.com/MAGIGT/vercel_updater/releases/download/v";
 
     try {
         const response = await fetch('/webgather/windows/latest.yml');
         if (!response.ok) throw new Error('无法加载更新信息');
         
         const data = jsyaml.load(await response.text());
-        const version = data.version || '未知版本';
-        versionEl.innerText = `v${version}`;
+        const version = data.version || '';
+        const exeName = data.path || (data.files?.[0]?.url);
 
-        let exeFileName = '';
-        if (data.path && data.path.endsWith('.exe')) {
-            exeFileName = data.path;
-        } else if (data.files && Array.isArray(data.files) && data.files.length > 0) {
-            const exeFile = data.files.find(f => f.url && f.url.endsWith('.exe'));
-            if (exeFile) exeFileName = exeFile.url;
-        }
-        if (!exeFileName) exeFileName = `WebGather-Product-Workflow-Setup-${version}.exe`;
+        if(!version || !exeName) throw new Error("解析版本信息失败");
+
+        versionEl.innerText = `v${version}`;
+        const downloadUrl = `${BASE_URL}${version}/${exeName}`;
 
         downloadBtn.disabled = false;
-        downloadBtn.onclick = function() {window.location.href = `/webgather/windows/${exeFileName}`;};
+        downloadBtn.onclick = function() {
+            window.open(downloadUrl, "_blank");
+        };
    
-        } catch (error) {
-        versionEl.innerText = '网络连接失败';
+    } catch (error) {
+        console.error(error);
+        versionEl.innerText = '获取更新失败';
         versionEl.classList.add('error');
-        downloadBtn.innerText = '请检查网络后重试';
+        downloadBtn.innerText = '暂时无法下载';
         downloadBtn.disabled = true;
     }
 })();
