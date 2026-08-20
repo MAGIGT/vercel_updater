@@ -1,80 +1,66 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WebGather 采集工作流 - 更新页</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
-<style>
-:root {
-  --page-bg:#f4f7fb; --panel-bg:#fff; --border:#dce5f1; --border-strong:#cbd7e6;
-  --primary:#2563eb; --primary-hover:#1d4ed8; --primary-light:#eef4ff;
-  --text-main:#172033; --text-muted:#69758a; --danger:#dc2626;
-  --success:#16a34a; --soft:#f8fafc; --log-bg:#020817;
-}
-*{box-sizing:border-box}
-html,body{margin:0;min-height:100%;font-family:Inter,"Segoe UI",Arial,sans-serif;color:var(--text-main);background:var(--page-bg)}
-body{display:flex;justify-content:center;align-items:center;min-height:100vh;flex-direction:column;padding:20px}
-.update-panel{min-width:0;background:var(--panel-bg);border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(15,23,42,.035);padding:24px 30px;max-width:440px;width:100%}
-p{margin:4px 0 0;color:var(--text-muted);font-size:11px;line-height:1.5}
-.version-box{margin-top:16px;background:var(--soft);border:1px solid var(--border);border-radius:8px;padding:12px;text-align:center}
-.version-label{font-size:11px;color:var(--text-muted);font-weight:600}
-.version-number{margin-top:4px;font-size:24px;font-weight:bold;color:var(--text-main)}
-.version-number.error{color:var(--danger)}
-.btn-download{width:100%;border:1px solid transparent;border-radius:7px;height:40px;padding:0 11px;cursor:pointer;transition:.15s;background:var(--primary);color:#fff;font-size:14px;font-weight:600;display:flex;align-items:center;justify-content:center;margin-top:16px;gap:8px}
-.btn-download:hover:not(:disabled){background:var(--primary-hover)}
-.btn-download:disabled{opacity:.45;cursor:not-allowed;background:var(--border-strong);color:var(--text-muted)}
-.footer{margin-top:16px;font-size:10px;color:var(--text-muted);text-align:center}
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <meta name="referrer" content="no-referrer">
+  <title>WebGather Product Workflow 更新</title>
+  <style>
+    :root{--page:#f4f7fb;--panel:#fff;--border:#dce5f1;--primary:#2563eb;--primary-hover:#1d4ed8;--text:#172033;--muted:#69758a;--soft:#f8fafc;--danger:#c62828;--success:#16803c}
+    *{box-sizing:border-box}html,body{margin:0;min-height:100%;font-family:Inter,"Segoe UI",Arial,sans-serif;color:var(--text);background:var(--page)}
+    body{display:grid;place-items:center;min-height:100vh;padding:24px}.panel{width:min(520px,100%);padding:28px;background:var(--panel);border:1px solid var(--border);border-radius:16px;box-shadow:0 12px 36px rgba(15,23,42,.08)}
+    h1{margin:0;font-size:23px;line-height:1.25}.lead{margin:8px 0 0;color:var(--muted);font-size:13px;line-height:1.65}.version{margin-top:20px;padding:17px;text-align:center;background:var(--soft);border:1px solid var(--border);border-radius:11px}
+    .version-label{font-size:12px;color:var(--muted);font-weight:650}.version-number{margin-top:3px;font-size:28px;font-weight:760}.version-number.error{color:var(--danger)}
+    .meta{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:12px}.meta div{padding:9px 6px;border:1px solid var(--border);border-radius:8px;text-align:center;min-width:0}.meta span{display:block;color:var(--muted);font-size:10px}.meta strong{display:block;margin-top:2px;font-size:12px;overflow-wrap:anywhere}
+    .notes{display:none;margin-top:14px;padding:12px 14px;max-height:160px;overflow:auto;white-space:pre-wrap;background:var(--soft);border:1px solid var(--border);border-radius:9px;color:var(--muted);font-size:12px;line-height:1.6}.notes.visible{display:block}
+    button{font:inherit}.download{width:100%;height:44px;margin-top:17px;border:0;border-radius:9px;background:var(--primary);color:#fff;font-weight:700;cursor:pointer}.download:hover:not(:disabled){background:var(--primary-hover)}.download:disabled{cursor:not-allowed;opacity:.52}
+    .secondary{display:flex;justify-content:center;gap:14px;margin-top:13px;font-size:12px}.secondary a,.secondary button{padding:0;border:0;background:none;color:var(--primary);text-decoration:none;cursor:pointer}.secondary a:hover,.secondary button:hover{text-decoration:underline}
+    .status{min-height:20px;margin-top:13px;text-align:center;color:var(--muted);font-size:11px;line-height:1.55}.status.success{color:var(--success)}.status.error{color:var(--danger)}
+    .footer{margin-top:15px;text-align:center;color:var(--muted);font-size:10px;line-height:1.55}
+    @media(max-width:430px){.panel{padding:21px}.meta{grid-template-columns:1fr}.meta div{display:flex;justify-content:space-between;text-align:left}}
+    @media(prefers-color-scheme:dark){:root{--page:#181a1d;--panel:#1e2024;--border:#353940;--text:#d8dbe1;--muted:#9ba3af;--soft:#25282d;--primary:#388bfd;--primary-hover:#58a6ff}}
+  </style>
 </head>
 <body>
-
-<div class="update-panel">
-    <div class="version-box">
-        <div class="version-label">最新发布版本</div>
-        <div class="version-number" id="versionDisplay">正在获取...</div>
-    </div>
-
-    <button class="btn-download" id="downloadBtn" disabled>
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-        下载并安装
-    </button>
-    <p class="footer">下载完成后，双击安装包即可自动升级</p>
-</div>
-
-<script>
-(async function() {
-    const versionEl = document.getElementById('versionDisplay');
-    const downloadBtn = document.getElementById('downloadBtn');
-    const BASE_URL = "https://github.com/MAGIGT/vercel_updater/releases/download/v";
-
-    try {
-        const response = await fetch('/webgather/windows/latest.yml');
-        if (!response.ok) throw new Error('无法加载更新信息');
-        
-        const data = jsyaml.load(await response.text());
-        const version = data.version || '';
-        const exeName = data.path || (data.files?.[0]?.url);
-
-        if(!version || !exeName) throw new Error("解析版本信息失败");
-
-        versionEl.innerText = `v${version}`;
-        const downloadUrl = `${BASE_URL}${version}/${exeName}`;
-
-        downloadBtn.disabled = false;
-        downloadBtn.onclick = function() {
-            window.open(downloadUrl, "_blank");
-        };
-   
-    } catch (error) {
-        console.error(error);
-        versionEl.innerText = '获取更新失败';
-        versionEl.classList.add('error');
-        downloadBtn.innerText = '暂时无法下载';
-        downloadBtn.disabled = true;
-    }
-})();
-</script>
-
+  <main class="panel">
+    <h1>WebGather Product Workflow</h1>
+    <p class="lead">这里是 WebGather 官方更新页。</p>
+    <section class="version" aria-live="polite">
+      <div class="version-label">最新发布版本</div>
+      <div class="version-number" id="version">&mdash;</div>
+      <div class="meta" id="meta" hidden>
+        <div><span>安装包</span><strong id="fileName">&mdash;</strong></div>
+        <div><span>文件大小</span><strong id="fileSize">&mdash;</strong></div>
+        <div><span>发布时间</span><strong id="publishedAt">&mdash;</strong></div>
+      </div>
+    </section>
+    <div class="notes" id="notes"></div>
+    <button class="download" id="download" disabled>正在获取最新版本……</button>
+    <div class="secondary"><button id="retry" type="button">重新获取</button><a id="release" href="https://github.com/MAGIGT/vercel_updater/releases/latest" target="_blank" rel="noopener noreferrer">查看发布详情</a></div>
+    <div class="status" id="status">正在连接……</div>
+    <div class="footer">下载完成后双击 Setup 即可升级。请不要从不明镜像获取安装包。</div>
+  </main>
+  <script>
+    (() => {
+      'use strict';
+      const api = 'https://api.github.com/repos/MAGIGT/vercel_updater/releases/latest';
+      const fallback = 'https://github.com/MAGIGT/vercel_updater/releases/latest';
+      const $ = (id) => document.getElementById(id);
+      const elements = { version:$('version'), meta:$('meta'), fileName:$('fileName'), fileSize:$('fileSize'), publishedAt:$('publishedAt'), notes:$('notes'), download:$('download'), retry:$('retry'), release:$('release'), status:$('status') };
+      let downloadUrl = '';
+      const formatBytes = (value) => { const bytes=Number(value||0); if(!bytes)return '未知'; const units=['B','KB','MB','GB']; const index=Math.min(units.length-1,Math.floor(Math.log(bytes)/Math.log(1024))); return `${(bytes/Math.pow(1024,index)).toFixed(index>1?1:0)} ${units[index]}`; };
+      const formatDate = (value) => { const date=new Date(value||''); return Number.isNaN(date.getTime())?'未知':new Intl.DateTimeFormat('zh-CN',{year:'numeric',month:'2-digit',day:'2-digit'}).format(date); };
+      const chooseInstaller = (assets) => { const exes=(assets||[]).filter((asset)=>/\.exe$/i.test(asset.name||'')&&!/\.blockmap$/i.test(asset.name||'')); const preferred=exes.filter((asset)=>/^WebGather-Product-Workflow-Setup-/i.test(asset.name||'')); return (preferred.length?preferred:exes).sort((a,b)=>Number(b.size||0)-Number(a.size||0))[0]||null; };
+      async function loadLatest(){
+        downloadUrl=''; elements.version.textContent='……'; elements.version.classList.remove('error'); elements.download.disabled=true; elements.download.textContent='正在获取最新版本……'; elements.status.className='status'; elements.status.textContent='正在连接 GitHub……'; elements.meta.hidden=true; elements.notes.classList.remove('visible'); elements.notes.textContent='';
+        try{
+          const response=await fetch(`${api}?t=${Date.now()}`,{cache:'no-store',headers:{Accept:'application/vnd.github+json'}}); if(!response.ok)throw new Error(`GitHub HTTP ${response.status}`); const release=await response.json(); const installer=chooseInstaller(release.assets); if(!installer?.browser_download_url)throw new Error('最新 Release 中没有找到 EXE 安装包');
+          downloadUrl=installer.browser_download_url; const version=String(release.tag_name||release.name||'').replace(/^v/i,'')||'未知'; elements.version.textContent=`v${version}`; elements.fileName.textContent=installer.name||'未知'; elements.fileSize.textContent=formatBytes(installer.size); elements.publishedAt.textContent=formatDate(release.published_at); elements.meta.hidden=false; const body=String(release.body||'').trim(); if(body){elements.notes.textContent=body;elements.notes.classList.add('visible');} elements.release.href=release.html_url||fallback; elements.download.disabled=false; elements.download.textContent='下载并安装'; elements.status.className='status success'; elements.status.textContent='更新信息已获取；下载文件来自 GitHub Release。';
+        }catch(error){elements.version.textContent='获取失败';elements.version.classList.add('error');elements.download.disabled=true;elements.download.textContent='暂时无法下载';elements.status.className='status error';elements.status.textContent=`${error.message||'网络连接失败'}。请重试，或查看发布详情。`;}
+      }
+      elements.download.addEventListener('click',()=>{if(downloadUrl)window.location.assign(downloadUrl);}); elements.retry.addEventListener('click',loadLatest); loadLatest();
+    })();
+  </script>
 </body>
 </html>
