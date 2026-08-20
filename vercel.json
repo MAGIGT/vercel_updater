@@ -1,24 +1,32 @@
 {
+  "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/webgather/windows/latest.yml",
+      "destination": "https://github.com/MAGIGT/vercel_updater/releases/latest/download/latest.yml",
+      "permanent": false
+    },
+    {
+      "source": "/webgather/windows/(.*\\.exe$|.*\\.blockmap$)",
+      "destination": "https://github.com/MAGIGT/vercel_updater/releases/latest/download/$1",
+      "permanent": false
+    }
+  ],
   "rewrites": [
-    { "source": "/webgather/windows/latest.yml", "destination": "/webgather/windows/latest.yml" },
-    { "source": "/webgather/windows/(.*\\.exe$|.*\\.blockmap$)", "destination": "/webgather/windows/$1" },
-    { "source": "/webgather", "destination": "/webgather/windows/" },
-    { "source": "/webgather/", "destination": "/webgather/windows/" },
-    { "source": "/webgather/windows", "destination": "/webgather/windows/" },
+    { "source": "/webgather", "destination": "/webgather/windows/index.html" },
+    { "source": "/webgather/", "destination": "/webgather/windows/index.html" },
+    { "source": "/webgather/windows", "destination": "/webgather/windows/index.html" },
+    { "source": "/webgather/windows/", "destination": "/webgather/windows/index.html" },
     { "source": "/", "destination": "https://test-1111111111111111111111111111111111711111111111130406.myshopify.com/" },
     { "source": "/(.*)", "destination": "https://test-1111111111111111111111111111111111711111111111130406.myshopify.com/$1" }
   ],
   "headers": [
     {
-      "source": "/webgather/windows/latest.yml",
+      "source": "/webgather(.*)",
       "headers": [
-        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" }
-      ]
-    },
-    {
-      "source": "/webgather/windows/(.*\\.exe$|.*\\.blockmap$)",
-      "headers": [
-        { "key": "Content-Type", "value": "application/octet-stream" }
+        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "no-referrer" }
       ]
     }
   ]
