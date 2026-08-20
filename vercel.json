@@ -9,51 +9,21 @@
     }
   ],
   "rewrites": [
-    {
-      "source": "/webgather/windows/latest.yml",
-      "destination": "https://github.com/MAGIGT/vercel_updater/releases/latest/download/latest.yml"
-    },
-    {
-      "source": "/webgather",
-      "destination": "/webgather/windows/index.html"
-    },
-    {
-      "source": "/webgather/",
-      "destination": "/webgather/windows/index.html"
-    },
-    {
-      "source": "/webgather/windows",
-      "destination": "/webgather/windows/index.html"
-    },
-    {
-      "source": "/webgather/windows/",
-      "destination": "/webgather/windows/index.html"
-    },
-    {
-      "source": "/",
-      "destination": "https://test-1111111111111111111111111111111111711111111111130406.myshopify.com/"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "https://test-1111111111111111111111111111111111711111111111130406.myshopify.com/$1"
-    }
+    { "source": "/webgather/windows/latest.yml", "destination": "/api/webgather-latest" },
+    { "source": "/webgather", "destination": "/webgather/windows/index.html" },
+    { "source": "/webgather/", "destination": "/webgather/windows/index.html" },
+    { "source": "/webgather/windows", "destination": "/webgather/windows/index.html" },
+    { "source": "/webgather/windows/", "destination": "/webgather/windows/index.html" },
+    { "source": "/", "destination": "https://test-1111111111111111111111111111111111711111111111130406.myshopify.com/" },
+    { "source": "/(.*)", "destination": "https://test-1111111111111111111111111111111111711111111111130406.myshopify.com/$1" }
   ],
   "headers": [
     {
       "source": "/webgather/:path*",
       "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "no-cache, no-store, must-revalidate"
-        },
-        {
-          "key": "X-Content-Type-Options",
-          "value": "nosniff"
-        },
-        {
-          "key": "Referrer-Policy",
-          "value": "no-referrer"
-        }
+        { "key": "Cache-Control", "value": "no-cache, no-store, must-revalidate" },
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "no-referrer" }
       ]
     }
   ]
